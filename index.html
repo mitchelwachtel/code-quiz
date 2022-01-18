@@ -11,22 +11,31 @@
     <header>
       <div class="top">
         <p class="view-highscores">View Highscores</p>
-        <p>Time: <span class="time">60</span></p>
+        <p>Time: <span class="timer">60</span></p>
       </div>
       <h1>Code Quiz</h1>
     </header>
     <main>
+      <div class="stats">
+        <p class="right-wrong side"></p>
         <button id="start">START</button>
-        <div class="question-card">
-            <h3 class="question"></h3>
-            <ul>
-                <li class="answer-choice"></li>
-                <li class="answer-choice"></li>
-                <li class="answer-choice"></li>
-                <li class="answer-choice"></li>
-            </ul>
-        </div>
+        <p class="score side">Score:</p>
+      </div>
+      <div class="question-card">
+        <h3 id="question">Question Here</h3>
+        <ul>
+          <li class="answer-choice"><button id="A">A. Answer A</button></li>
+          <li class="answer-choice">
+            <button id="B">B. Answer B</button>
+          </li>
+          <li class="answer-choice">
+            <button id="C">C. Answer C</button>
+          </li>
+          <li class="answer-choice"><button id="D">D. Answer D</button></li>
+        </ul>
+      </div>
     </main>
     <footer><h2>Mitchel Wachtel - January 2022</h2></footer>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>

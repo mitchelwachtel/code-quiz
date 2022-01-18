@@ -28,35 +28,91 @@ main {
   flex-direction: column;
   align-items: center;
   padding: 25px;
-  height: 500px;
+  height: 550px;
   width: 80%;
   background-color: white;
   opacity: 50%;
   border-radius: 20px;
 }
 
-button {
+#start {
   font-size: 40px;
   border-radius: 20px;
   padding: 0px 5px;
   background-color: #28AC93;
+  margin-bottom: 20px;
 }
 
 .question-card {
-    width: 200px;
-    height: 400px;
-    background-color: white;
+    width: 95%;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 2%;
+    border: 3px solid black;
+    border-radius: 20px;
+    
 }
 
+#question {
+    font-size: 35px;
+    text-transform:uppercase;
+}
+
+.side {
+    width: 20%;
+}
+
+.answer-choice {
+    
+    font-size: 25px;
+    margin: 5px;
+}
+.stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 20px;
+}
+
+button {
+    border-radius: 20px;
+  padding: 0px 5px;
+  text-align: left;
+}
 
 footer {
     display: flex;
     justify-content: center;
     height: 90px;
-    font-size: 30px;
+    font-size: 20px;
     align-items: center;
 }
 
 #start:hover {
     background-color: #EAC10E;
+}
+
+.view-highscores:hover {
+    color: #EAC10E;
+}
+
+button:hover {
+    background-color: #EAC10E;
+}
+
+@media screen and (max-width: 576px) {
+    .top {
+        font-size: 20px;
+    }
+    #start {
+        font-size: 25px;
+    }
+    #question {
+        font-size: 25px;
+    }
+    .answer-choice {
+        font-size: 20px;
+    }
 }
