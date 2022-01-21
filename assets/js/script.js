@@ -1,4 +1,4 @@
-var timerEl = document.getElementsByClassName("timer");
+var timerEl = document.getElementById("timer");
 var rightWrongEl = document.getElementsByClassName("right-wrong");
 var questionEl = document.getElementById("question");
 var aEl = document.getElementById("buttonA");
@@ -6,12 +6,19 @@ var bEl = document.getElementById("buttonB");
 var cEl = document.getElementById("buttonC");
 var dEl = document.getElementById("buttonD");
 var startEl = document.getElementById("start");
-var listEL = document.getElementById("list");
-var questionCardEl = document.getElementsByClassName("question-card");
+var highScoreListEL = document.getElementById("highscore-list");
+var setScoreEL = document.getElementById("set-score");
+var scoreEL = document.getElementById("score");
+var questionCardEl = document.getElementById("question-card");
+var submitEl = document.getElementById("submit");
+var initialsEl = document.getElementById("initials");
+var initialsList = [];
 var questionsArray = [1, 2, 3, 4, 5];
 var correctAns = '';
 var timer = 60;
 var j = 1;
+
+timerEl.textContent = timer;
 
 var bank = {
   1: {
@@ -52,17 +59,18 @@ var bank = {
   },
 };
 
-var randomEl = function (array) {
-  var index = Math.floor(Math.random() * array.length);
-  var element = array[index];
-  return element;
-};
+// var randomEl = function (array) {
+//   var index = Math.floor(Math.random() * array.length);
+//   var element = array[index];
+//   return element;
+// };
 
 startEl.addEventListener("click", codeQuiz);
 aEl.addEventListener('click', checkAns);
 bEl.addEventListener('click', checkAns);
 cEl.addEventListener('click', checkAns);
 dEl.addEventListener('click', checkAns);
+submitEl.addEventListener('click', saveScore)
 
 function codeQuiz(event) {
    event.stopPropagation();
@@ -91,19 +99,51 @@ function questionAppear(j) {
   bEl.textContent = bank[j].answers[w[1]];
   cEl.textContent = bank[j].answers[w[2]];
   dEl.textContent = bank[j].answers[w[3]];
-  document.querySelector('.question-card').setAttribute('style', 'display: flex');
+
+  questionCardEl.hidden = false;
+//   document.querySelector('.question-card').setAttribute('style', 'display: flex');
   console.log(correctAns);
 }
 
 function checkAns(event) {
     event.stopPropagation();
-    if (event.target.textContent === correctAns) {
-        console.log('hooray!');
+    if (event.target.textContent === correctAns && j < 5) {
+        j++;
+        console.log(j);
+        questionAppear(j);
+    } else if (event.target.textContent === correctAns) {
+        setHighScore();
+    } else if (j < 5) {
+        timer -= 10;
+        timerEl.textContent = timer;
         j++;
         questionAppear(j);
     } else {
-        console.log('boo!');
-        j++;
-        questionAppear(j);
+        timer -= 10;
+        timerEl.textContent = timer;
+        setHighScore();
     }
+}
+
+function setHighScore() {
+    questionCardEl.hidden = true;
+    setScoreEL.hidden = false;
+    scoreEL.textContent = timer;
+}
+
+function saveScore(event) {
+    event.stopPropagation();
+
+    var initials = initialsEl.value;
+    initialsList.push(initials);
+
+    localStorage.setItem(initials, timer);
+    
+    window.location = 'highscores.html';
+    
+    // TODO: Iterate through initialsList and push the keys and value pairs into high scores page
+    for (i = 0; i < initialsList.length; i++) {
+        
+    }
+
 }
