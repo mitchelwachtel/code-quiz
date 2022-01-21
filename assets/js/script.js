@@ -1,12 +1,17 @@
 var timerEl = document.getElementsByClassName("timer");
 var rightWrongEl = document.getElementsByClassName("right-wrong");
 var questionEl = document.getElementById("question");
-var aEl = document.getElementById("A");
-var bEl = document.getElementById("B");
-var cEl = document.getElementById("C");
-var dEl = document.getElementById("D");
+var aEl = document.getElementById("buttonA");
+var bEl = document.getElementById("buttonB");
+var cEl = document.getElementById("buttonC");
+var dEl = document.getElementById("buttonD");
 var startEl = document.getElementById("start");
+var listEL = document.getElementById("list");
+var questionCardEl = document.getElementsByClassName("question-card");
 var questionsArray = [1, 2, 3, 4, 5];
+var correctAns = '';
+var timer = 60;
+var j = 1;
 
 var bank = {
   1: {
@@ -35,7 +40,8 @@ var bank = {
     correctAns: "Application Programming Interface",
   },
   4: {
-    question: "Arr = [4, 3, 2, 1]. How would you select the element, 3, in JavaScript?",
+    question:
+      "Arr = [4, 3, 2, 1]. How would you select the element, 3, in JavaScript?",
     answers: ["Arr[1]", "Arr[2]", "Arr[3]", "Arr.2"],
     correctAns: "Arr[1]",
   },
@@ -53,20 +59,51 @@ var randomEl = function (array) {
 };
 
 startEl.addEventListener("click", codeQuiz);
+aEl.addEventListener('click', checkAns);
+bEl.addEventListener('click', checkAns);
+cEl.addEventListener('click', checkAns);
+dEl.addEventListener('click', checkAns);
 
-function codeQuiz() {
-  // TODO: Start a timer
+function codeQuiz(event) {
+   event.stopPropagation();
+    // TODO: Start a timer
 
-  // Display questions randomly with answer choices randomized and proceed to next question after a choice has been made
-  for (i = 0; i < questionsArray.length; i++) {
-    var p = randomEl(questionsArray);
+  // Do questions need to appear randomly?
 
-    questionEl.textContent = bank[p].question;
-    aEl.textContent = "A. " + bank[p].answers[0];
-    bEl.textContent = "B. " + bank[p].answers[1];
-    cEl.textContent = "C. " + bank[p].answers[2];
-    dEl.textContent = "D. " + bank[p].answers[3];
+  startEl.hidden = true;
 
-    i++;
-  }
+  questionAppear(j);
+
+}
+
+function questionAppear(j) {
+  correctAns = bank[j].correctAns;
+  var options = [0, 1, 2, 3];
+  var w = [];
+    while (options.length > 0) {
+        var n = Math.floor(Math.random() * options.length);
+        w.push(options[n]);
+        options.splice(n, 1);
+    }
+  
+  questionEl.textContent = bank[j].question;
+  aEl.textContent = bank[j].answers[w[0]];
+  bEl.textContent = bank[j].answers[w[1]];
+  cEl.textContent = bank[j].answers[w[2]];
+  dEl.textContent = bank[j].answers[w[3]];
+  document.querySelector('.question-card').setAttribute('style', 'display: flex');
+  console.log(correctAns);
+}
+
+function checkAns(event) {
+    event.stopPropagation();
+    if (event.target.textContent === correctAns) {
+        console.log('hooray!');
+        j++;
+        questionAppear(j);
+    } else {
+        console.log('boo!');
+        j++;
+        questionAppear(j);
+    }
 }
