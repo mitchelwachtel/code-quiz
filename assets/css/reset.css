@@ -30,6 +30,7 @@
   
   /* Removes default bullet points from lists */
   ol, ul, a {
+    color: black;
     list-style: none;
     text-decoration: none;
     font-family: monospace, 'Courier New', Courier;

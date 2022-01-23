@@ -19,7 +19,8 @@ header {
 }
 
 h1 {
-  text-align: center;
+  padding: 2px;
+    text-align: center;
   font-size: 50px;
 }
 
