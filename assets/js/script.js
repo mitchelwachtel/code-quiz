@@ -78,18 +78,52 @@ if (
   submitEl !== null
 ) {
   startEl.addEventListener("click", codeQuiz);
-  aEl.addEventListener("click", checkAns);
-  bEl.addEventListener("click", checkAns);
-  cEl.addEventListener("click", checkAns);
-  dEl.addEventListener("click", checkAns);
+
   submitEl.addEventListener("click", saveScore);
 }
+
+
 
 function codeQuiz(event) {
   event.stopPropagation();
   // TODO: Start a timer
+  var countdown = setInterval(function () {
+    timer--;
+    timerEl.textContent = timer;
+    if (timer == 0) {
+      clearInterval(countdown);
+      setHighScore();
+    }
+}, 1000);
 
-  // Do questions need to appear randomly?
+  
+aEl.addEventListener("click", checkAns);
+bEl.addEventListener("click", checkAns);
+cEl.addEventListener("click", checkAns);
+dEl.addEventListener("click", checkAns);
+
+function checkAns(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (event.target.textContent === correctAns && j < 5) {
+      j++;
+      console.log(j);
+      questionAppear(j);
+    } else if (event.target.textContent === correctAns) {
+      clearInterval(countdown)
+      setHighScore();
+    } else if (j < 5) {
+      timer -= 10;
+      timerEl.textContent = timer;
+      j++;
+      questionAppear(j);
+    } else {
+      timer -= 10;
+      timerEl.textContent = timer;
+      clearInterval(countdown)
+      setHighScore();
+    }
+  }
 
   startEl.hidden = true;
 
@@ -106,6 +140,7 @@ function questionAppear(j) {
     options.splice(n, 1);
   }
 
+
   questionEl.textContent = bank[j].question;
   aEl.textContent = bank[j].answers[w[0]];
   bEl.textContent = bank[j].answers[w[1]];
@@ -117,25 +152,7 @@ function questionAppear(j) {
   console.log(correctAns);
 }
 
-function checkAns(event) {
-  event.stopPropagation();
-  if (event.target.textContent === correctAns && j < 5) {
-    j++;
-    console.log(j);
-    questionAppear(j);
-  } else if (event.target.textContent === correctAns) {
-    setHighScore();
-  } else if (j < 5) {
-    timer -= 10;
-    timerEl.textContent = timer;
-    j++;
-    questionAppear(j);
-  } else {
-    timer -= 10;
-    timerEl.textContent = timer;
-    setHighScore();
-  }
-}
+
 
 function setHighScore() {
   questionCardEl.hidden = true;
@@ -181,3 +198,6 @@ function scoresFunction() {
 function displayHighscores(archive) {
   highScoreListEL.textContent = archive[0];
 }
+
+// saved timer for last
+
