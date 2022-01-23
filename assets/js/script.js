@@ -14,11 +14,15 @@ var submitEl = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
 var initialsList = [];
 var questionsArray = [1, 2, 3, 4, 5];
-var correctAns = '';
+var correctAns = "";
 var timer = 60;
 var j = 1;
+var archive = [];
 
-timerEl.textContent = timer;
+// Since this js is being used for 2 html pages, I had to make sure that the element exists on the page before setting content to it.
+if (timerEl !== null) {
+  timerEl.textContent = timer;
+}
 
 var bank = {
   1: {
@@ -65,35 +69,43 @@ var bank = {
 //   return element;
 // };
 
-startEl.addEventListener("click", codeQuiz);
-aEl.addEventListener('click', checkAns);
-bEl.addEventListener('click', checkAns);
-cEl.addEventListener('click', checkAns);
-dEl.addEventListener('click', checkAns);
-submitEl.addEventListener('click', saveScore)
+if (
+  startEl !== null &&
+  aEl !== null &&
+  bEl !== null &&
+  cEl !== null &&
+  dEl !== null &&
+  submitEl !== null
+) {
+  startEl.addEventListener("click", codeQuiz);
+  aEl.addEventListener("click", checkAns);
+  bEl.addEventListener("click", checkAns);
+  cEl.addEventListener("click", checkAns);
+  dEl.addEventListener("click", checkAns);
+  submitEl.addEventListener("click", saveScore);
+}
 
 function codeQuiz(event) {
-   event.stopPropagation();
-    // TODO: Start a timer
+  event.stopPropagation();
+  // TODO: Start a timer
 
   // Do questions need to appear randomly?
 
   startEl.hidden = true;
 
   questionAppear(j);
-
 }
 
 function questionAppear(j) {
   correctAns = bank[j].correctAns;
   var options = [0, 1, 2, 3];
   var w = [];
-    while (options.length > 0) {
-        var n = Math.floor(Math.random() * options.length);
-        w.push(options[n]);
-        options.splice(n, 1);
-    }
-  
+  while (options.length > 0) {
+    var n = Math.floor(Math.random() * options.length);
+    w.push(options[n]);
+    options.splice(n, 1);
+  }
+
   questionEl.textContent = bank[j].question;
   aEl.textContent = bank[j].answers[w[0]];
   bEl.textContent = bank[j].answers[w[1]];
@@ -101,49 +113,71 @@ function questionAppear(j) {
   dEl.textContent = bank[j].answers[w[3]];
 
   questionCardEl.hidden = false;
-//   document.querySelector('.question-card').setAttribute('style', 'display: flex');
+  //   document.querySelector('.question-card').setAttribute('style', 'display: flex');
   console.log(correctAns);
 }
 
 function checkAns(event) {
-    event.stopPropagation();
-    if (event.target.textContent === correctAns && j < 5) {
-        j++;
-        console.log(j);
-        questionAppear(j);
-    } else if (event.target.textContent === correctAns) {
-        setHighScore();
-    } else if (j < 5) {
-        timer -= 10;
-        timerEl.textContent = timer;
-        j++;
-        questionAppear(j);
-    } else {
-        timer -= 10;
-        timerEl.textContent = timer;
-        setHighScore();
-    }
+  event.stopPropagation();
+  if (event.target.textContent === correctAns && j < 5) {
+    j++;
+    console.log(j);
+    questionAppear(j);
+  } else if (event.target.textContent === correctAns) {
+    setHighScore();
+  } else if (j < 5) {
+    timer -= 10;
+    timerEl.textContent = timer;
+    j++;
+    questionAppear(j);
+  } else {
+    timer -= 10;
+    timerEl.textContent = timer;
+    setHighScore();
+  }
 }
 
 function setHighScore() {
-    questionCardEl.hidden = true;
-    setScoreEL.hidden = false;
-    scoreEL.textContent = timer;
+  questionCardEl.hidden = true;
+  setScoreEL.hidden = false;
+  scoreEL.textContent = timer;
 }
 
 function saveScore(event) {
-    event.stopPropagation();
+  event.stopPropagation();
+  event.preventDefault();
 
-    var initials = initialsEl.value;
-    initialsList.push(initials);
+  var initials = initialsEl.value;
 
-    localStorage.setItem(initials, timer);
-    
-    window.location = 'highscores.html';
-    
-    // TODO: Iterate through initialsList and push the keys and value pairs into high scores page
-    for (i = 0; i < initialsList.length; i++) {
-        
-    }
+  localStorage.setItem(initials, timer);
 
+  window.location = "highscores.html";
+}
+
+// Grabs all the local storage keys and values
+
+function allStorage() {
+  var stuff = [];
+  var keys = Object.keys(localStorage);
+  var key;
+
+  for (i = 0; (key = keys[i]); i++) {
+    stuff.push(key + ":  " + localStorage.getItem(key));
+  }
+
+  return stuff;
+}
+
+function scoresFunction() {
+  archive = allStorage();
+  for (c = 0; c < archive.length; c++) {
+    var newEl = document.createElement("li");
+    newEl.textContent = archive[c];
+    newEl.classList.add("displayScore");
+    highScoreListEL.appendChild(newEl);
+  }
+}
+
+function displayHighscores(archive) {
+  highScoreListEL.textContent = archive[0];
 }
