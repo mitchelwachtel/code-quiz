@@ -153,3 +153,24 @@ button:hover {
     color: black;
 }
 
+
+/* Below is a failed attempt at using @keyframes animation to fade in/out the correct/incorrect strings after a question is answered */
+/* .appear {
+    animation-name: _Fade;
+    animation-duration: 3s;
+}
+
+@keyframes _Fade {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+} */

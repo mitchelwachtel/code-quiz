@@ -1,5 +1,5 @@
 var timerEl = document.getElementById("timer");
-var rightWrongEl = document.getElementsByClassName("right-wrong");
+var rightWrongEl = document.getElementById("right-wrong");
 var questionEl = document.getElementById("question");
 var aEl = document.getElementById("buttonA");
 var bEl = document.getElementById("buttonB");
@@ -12,12 +12,11 @@ var scoreEL = document.getElementById("score");
 var questionCardEl = document.getElementById("question-card");
 var submitEl = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
-var initialsList = [];
-var questionsArray = [1, 2, 3, 4, 5];
 var correctAns = "";
 var timer = 60;
 var j = 1;
 var archive = [];
+var opacity;
 
 // Since this js is being used for 2 html pages, I had to make sure that the element exists on the page before setting content to it.
 if (timerEl !== null) {
@@ -82,8 +81,6 @@ if (
   submitEl.addEventListener("click", saveScore);
 }
 
-
-
 function codeQuiz(event) {
   event.stopPropagation();
   // TODO: Start a timer
@@ -94,33 +91,39 @@ function codeQuiz(event) {
       clearInterval(countdown);
       setHighScore();
     }
-}, 1000);
+  }, 1000);
 
-  
-aEl.addEventListener("click", checkAns);
-bEl.addEventListener("click", checkAns);
-cEl.addEventListener("click", checkAns);
-dEl.addEventListener("click", checkAns);
+  aEl.addEventListener("click", checkAns);
+  bEl.addEventListener("click", checkAns);
+  cEl.addEventListener("click", checkAns);
+  dEl.addEventListener("click", checkAns);
 
-function checkAns(event) {
+  function checkAns(event) {
     event.stopPropagation();
     event.preventDefault();
     if (event.target.textContent === correctAns && j < 5) {
       j++;
-      console.log(j);
+      rightWrongEl.textContent = "Correct";
+      fadeOut(rightWrongEl);
       questionAppear(j);
     } else if (event.target.textContent === correctAns) {
-      clearInterval(countdown)
+      rightWrongEl.textContent = "Correct";
+      fadeOut(rightWrongEl);
+      clearInterval(countdown);
       setHighScore();
     } else if (j < 5) {
       timer -= 10;
       timerEl.textContent = timer;
       j++;
+      rightWrongEl.textContent = "Incorrect";
+      fadeOut(rightWrongEl);
       questionAppear(j);
     } else {
       timer -= 10;
       timerEl.textContent = timer;
-      clearInterval(countdown)
+      rightWrongEl.textContent = "Incorrect";
+      fadeOut(rightWrongEl);
+      clearInterval(countdown);
       setHighScore();
     }
   }
@@ -140,7 +143,6 @@ function questionAppear(j) {
     options.splice(n, 1);
   }
 
-
   questionEl.textContent = bank[j].question;
   aEl.textContent = bank[j].answers[w[0]];
   bEl.textContent = bank[j].answers[w[1]];
@@ -151,8 +153,6 @@ function questionAppear(j) {
   //   document.querySelector('.question-card').setAttribute('style', 'display: flex');
   console.log(correctAns);
 }
-
-
 
 function setHighScore() {
   questionCardEl.hidden = true;
@@ -199,5 +199,15 @@ function displayHighscores(archive) {
   highScoreListEL.textContent = archive[0];
 }
 
-// saved timer for last
-
+function fadeOut(content) {
+  opacity = 1;
+  var countdown2 = setInterval(function () {
+    if (opacity == 0) {
+      clearInterval(countdown2);
+      content.setAttribute("style", "opacity: 0");
+      return;
+    }
+    content.setAttribute("style", "opacity: " + opacity);
+    opacity = opacity - 0.1;
+  }, 300);
+}
