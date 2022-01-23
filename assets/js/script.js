@@ -79,15 +79,16 @@ if (
   startEl.addEventListener("click", codeQuiz);
 
   submitEl.addEventListener("click", saveScore);
+  
 }
 
 function codeQuiz(event) {
   event.stopPropagation();
-  // TODO: Start a timer
+  // Start a timer
   var countdown = setInterval(function () {
     timer--;
     timerEl.textContent = timer;
-    if (timer == 0) {
+    if (timer <= 0) {
       clearInterval(countdown);
       setHighScore();
     }
@@ -199,6 +200,7 @@ function displayHighscores(archive) {
   highScoreListEL.textContent = archive[0];
 }
 
+// FadeOut function fades an element in 3 seconds
 function fadeOut(content) {
   opacity = 1;
   var countdown2 = setInterval(function () {
