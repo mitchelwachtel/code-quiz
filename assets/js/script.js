@@ -23,6 +23,8 @@ if (timerEl !== null) {
   timerEl.textContent = timer;
 }
 
+// Here I created an object, bank, which stores the 5 questions, the 4 answer options, and the 1 correct answer
+// Each question is titled by a number starting at 1, like the variable j. The questionAppear function will use the j value to call upon & display the correct question.
 var bank = {
   1: {
     question: "Which array method removes the last element of the array?",
@@ -62,12 +64,7 @@ var bank = {
   },
 };
 
-// var randomEl = function (array) {
-//   var index = Math.floor(Math.random() * array.length);
-//   var element = array[index];
-//   return element;
-// };
-
+// This made sure that the buttons on index.html were being listened for, but not when highscores.html was open
 if (
   startEl !== null &&
   aEl !== null &&
@@ -82,6 +79,10 @@ if (
   
 }
 
+// This is the main function that runs when the START button is clicked
+// Inside the codeQuiz function is the countdown variable that sets the timer using an interval, the event listeners for the answer choices, and the checkAns function
+// These are nested in codeQuiz because they all deal with the timer variable, that is also being manipulated by the countdown and the checkAns function
+// These functions take advantage of global functions questionAppear & setHighScore
 function codeQuiz(event) {
   event.stopPropagation();
   // Start a timer
@@ -134,6 +135,9 @@ function codeQuiz(event) {
   questionAppear(j);
 }
 
+// questionAppear uses global variable j, initially set at 1 to move through the questions. Once a question is displayed, the checkAns function increases j by 1, insuring that the next question is the next in the progression.
+// The options are randomized using a 'Fisher and Yates' method as I have in a previous project
+// The text content of each button is updated and the question Card element is set to be visible by the user.
 function questionAppear(j) {
   correctAns = bank[j].correctAns;
   var options = [0, 1, 2, 3];
@@ -151,16 +155,19 @@ function questionAppear(j) {
   dEl.textContent = bank[j].answers[w[3]];
 
   questionCardEl.hidden = false;
-  //   document.querySelector('.question-card').setAttribute('style', 'display: flex');
-  console.log(correctAns);
+  
+
 }
 
+// When the last question has been answered OR when the timer hits 0, the user is directed to the set high score screen that is controlled by the function, called by checkAns
+// This turns off the visibility of the question card and turns on the visibility of the input box and submit button for the user's initials
 function setHighScore() {
   questionCardEl.hidden = true;
   setScoreEL.hidden = false;
   scoreEL.textContent = timer;
 }
 
+// When the submit button is clicked, saveScore is activated which saves the score and initials to local Storage and then opens the other html file, highscores.html
 function saveScore(event) {
   event.stopPropagation();
   event.preventDefault();
@@ -173,7 +180,6 @@ function saveScore(event) {
 }
 
 // Grabs all the local storage keys and values
-
 function allStorage() {
   var stuff = [];
   var keys = Object.keys(localStorage);
@@ -186,6 +192,8 @@ function allStorage() {
   return stuff;
 }
 
+// This function is called when highscores.html has been loaded. 
+// This uses allStorage to return all the localStorage to the archive variable, then iterates through the length of that array and displays each as an li
 function scoresFunction() {
   archive = allStorage();
   for (c = 0; c < archive.length; c++) {
@@ -196,11 +204,9 @@ function scoresFunction() {
   }
 }
 
-function displayHighscores(archive) {
-  highScoreListEL.textContent = archive[0];
-}
 
 // FadeOut function fades an element in 3 seconds
+// When the function is called, it sets the opacity to 1, and uses this setInterval to decrease the opacity by .1 each 300 milliseconds
 function fadeOut(content) {
   opacity = 1;
   var countdown2 = setInterval(function () {
@@ -210,6 +216,6 @@ function fadeOut(content) {
       return;
     }
     content.setAttribute("style", "opacity: " + opacity);
-    opacity = opacity - 0.1;
+    opacity -= 0.1;
   }, 300);
 }
