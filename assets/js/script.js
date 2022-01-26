@@ -76,7 +76,6 @@ if (
   startEl.addEventListener("click", codeQuiz);
 
   submitEl.addEventListener("click", saveScore);
-  
 }
 
 // This is the main function that runs when the START button is clicked
@@ -122,11 +121,20 @@ function codeQuiz(event) {
       questionAppear(j);
     } else {
       timer -= 10;
-      timerEl.textContent = timer;
-      rightWrongEl.textContent = "Incorrect";
-      fadeOut(rightWrongEl);
-      clearInterval(countdown);
-      setHighScore();
+      if (timer < 0) {
+        timer = 0;
+        timerEl.textContent = timer;
+        rightWrongEl.textContent = "Incorrect";
+        fadeOut(rightWrongEl);
+        clearInterval(countdown);
+        setHighScore();
+      } else {
+        timerEl.textContent = timer;
+        rightWrongEl.textContent = "Incorrect";
+        fadeOut(rightWrongEl);
+        clearInterval(countdown);
+        setHighScore();
+      }
     }
   }
 
@@ -155,8 +163,6 @@ function questionAppear(j) {
   dEl.textContent = bank[j].answers[w[3]];
 
   questionCardEl.hidden = false;
-  
-
 }
 
 // When the last question has been answered OR when the timer hits 0, the user is directed to the set high score screen that is controlled by the function, called by checkAns
@@ -192,7 +198,7 @@ function allStorage() {
   return stuff;
 }
 
-// This function is called when highscores.html has been loaded. 
+// This function is called when highscores.html has been loaded.
 // This uses allStorage to return all the localStorage to the archive variable, then iterates through the length of that array and displays each as an li
 function scoresFunction() {
   archive = allStorage();
@@ -204,7 +210,6 @@ function scoresFunction() {
   }
 }
 
-
 // FadeOut function fades an element in 3 seconds
 // When the function is called, it sets the opacity to 1, and uses this setInterval to decrease the opacity by .1 each 300 milliseconds
 function fadeOut(content) {
@@ -214,8 +219,9 @@ function fadeOut(content) {
       clearInterval(countdown2);
       content.setAttribute("style", "opacity: 0");
       return;
+    } else {
+      content.setAttribute("style", "opacity: " + opacity);
+      opacity -= 0.1;
     }
-    content.setAttribute("style", "opacity: " + opacity);
-    opacity -= 0.1;
   }, 300);
 }
