@@ -177,31 +177,34 @@ function setHighScore() {
 function saveScore(event) {
   event.stopPropagation();
   event.preventDefault();
-
+  var allScores = [];
   var initials = initialsEl.value;
 
-  localStorage.setItem(initials, timer);
+  if (localStorage.getItem('quiz') != null) {
+    console.log('hey');
+  var x = localStorage.getItem('quiz');
+  allScores = JSON.parse(x);
+} 
+  var obj = {
+    initials: initials,
+    score: timer, 
+  };
+
+  allScores.push(obj);
+
+  localStorage.setItem('quiz', JSON.stringify(allScores));
 
   window.location = "highscores.html";
 }
 
 // Grabs all the local storage keys and values
-function allStorage() {
-  var stuff = [];
-  var keys = Object.keys(localStorage);
-  var key;
 
-  for (i = 0; (key = keys[i]); i++) {
-    stuff.push(key + ":  " + localStorage.getItem(key));
-  }
-
-  return stuff;
-}
 
 // This function is called when highscores.html has been loaded.
 // This uses allStorage to return all the localStorage to the archive variable, then iterates through the length of that array and displays each as an li
 function scoresFunction() {
-  archive = allStorage();
+  var y = localStorage.getItem('quiz');
+  var archive = JSON.parse(y);
   for (c = 0; c < archive.length; c++) {
     var newEl = document.createElement("li");
     newEl.textContent = archive[c];
