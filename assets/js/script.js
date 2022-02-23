@@ -205,6 +205,16 @@ function saveScore(event) {
 function scoresFunction() {
   var y = localStorage.getItem('quiz');
   var archive = JSON.parse(y);
+
+  function compare(a, b) {
+    var scoreA = a.score;
+    var scoreB = b.score; 
+
+    return scoreB - scoreA;
+  }
+
+  archive.sort(compare);
+
   for (c = 0; c < archive.length; c++) {
     var newEl = document.createElement("li");
     newEl.textContent = `${archive[c].initials}: ${archive[c].score}`;
