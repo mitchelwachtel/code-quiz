@@ -181,7 +181,7 @@ function saveScore(event) {
   var initials = initialsEl.value;
 
   if (localStorage.getItem('quiz') != null) {
-    console.log('hey');
+
   var x = localStorage.getItem('quiz');
   allScores = JSON.parse(x);
 } 
