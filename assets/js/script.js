@@ -180,39 +180,37 @@ function saveScore(event) {
   var allScores = [];
   var initials = initialsEl.value;
 
-  if (localStorage.getItem('quiz') != null) {
-
-  var x = localStorage.getItem('quiz');
-  allScores = JSON.parse(x);
-} 
+  if (localStorage.getItem("quiz") != null) {
+    var x = localStorage.getItem("quiz");
+    allScores = JSON.parse(x);
+  }
   var obj = {
     initials: initials,
-    score: timer, 
+    score: timer,
   };
 
   allScores.push(obj);
 
-  localStorage.setItem('quiz', JSON.stringify(allScores));
+  localStorage.setItem("quiz", JSON.stringify(allScores));
 
   window.location = "highscores.html";
 }
 
 // Grabs all the local storage keys and values
 
-
 // This function is called when highscores.html has been loaded.
 // This uses allStorage to return all the localStorage to the archive variable, then iterates through the length of that array and displays each as an li
 function scoresFunction() {
-  var y = localStorage.getItem('quiz');
+  var y = localStorage.getItem("quiz");
   var archive = JSON.parse(y);
 
+  // This function is used to sort the archived scores that were just pulled it is ordering them in decending order so that when they are displayed, we see the highest scores on top.
   function compare(a, b) {
     var scoreA = a.score;
-    var scoreB = b.score; 
+    var scoreB = b.score;
 
     return scoreB - scoreA;
   }
-
   archive.sort(compare);
 
   for (c = 0; c < archive.length; c++) {
