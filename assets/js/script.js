@@ -207,7 +207,7 @@ function scoresFunction() {
   var archive = JSON.parse(y);
   for (c = 0; c < archive.length; c++) {
     var newEl = document.createElement("li");
-    newEl.textContent = archive[c];
+    newEl.textContent = `${archive[c].initials}: ${archive[c].score}`;
     newEl.classList.add("displayScore");
     highScoreListEL.appendChild(newEl);
   }
