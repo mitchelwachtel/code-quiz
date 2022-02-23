@@ -3,11 +3,12 @@
 ## Mitchel Wachtel - mitchel.wachtel@gmail.com
 
 ---
+
 ## Description
 
 Technologies used: Javascript with HTML & CSS. GitHub pages was used in order to publish the site.
 
-This web project displays a question and begins a countdown timer when the Start button is clicked. When an answer is selected, the js script decides if the answer is correct or not, displays "correct" or "incorrect", provides another question, and then subtracts 10 from the timer IF the answer was incorrect. After all 5 questions OR if the timer hits 0, the user has the ability to input their initials and their score is displayed (along with other localStorage key-value pairs) on the highscores.html page. 
+This web project displays a question and begins a countdown timer when the Start button is clicked. When an answer is selected, the js script decides if the answer is correct or not, displays "correct" or "incorrect", provides another question, and then subtracts 10 from the timer IF the answer was incorrect. After all 5 questions OR if the timer hits 0, the user has the ability to input their initials and their score is displayed (along with other localStorage key-value pairs) on the highscores.html page.
 
 My motivation for this project was to try out multiple techniques and solve several problems that I did not initially feel comfortable with. The first was setting up an object. I used this to organize the questions and their answers. I got to practice setting up timers/intervals, eventListeners, .hidden, and localStorage. Adding elements to the DOM and using js to "animate" were also big steps that I was excited to get pracitice with.
 
@@ -19,14 +20,15 @@ Next steps: Create a bank of x questions and have the program randomly give out 
 
 ---
 
-### **Deployed Site** can be found *[here](https://www.mitchelwachtel.me/code-quiz/)*. 
+### **Deployed Site** can be found _[here](https://www.mitchelwachtel.me/code-quiz/)_.
 
 ---
 
-### **GitHub Repository** can be found *[here](https://github.com/mitchelwachtel/code-quiz)*.
+### **GitHub Repository** can be found _[here](https://github.com/mitchelwachtel/code-quiz)_.
 
 ---
-## Installation 
+
+## Installation
 
 Simply open in a brower and the webpage should appear as below.
 
@@ -39,11 +41,13 @@ Simply open in a brower and the webpage should appear as below.
 ![Highscores page](./assets/images/scores.png)
 
 ---
+
 ## Credits
 
-Since this was such an involved project, I took inspiration from a few sources. *[This thread](https://stackoverflow.com/questions/6121203/how-to-do-fade-in-and-fade-out-with-javascript-and-css)* on Stack Overflow really helped me use setInterval for something besides a countdown timer. One of my biggest struggles was retrieving the data from local storage in a way that is acessible to me on the highscores.html page. *[This thread](https://stackoverflow.com/questions/17745292/how-to-retrieve-all-localstorage-items-without-knowing-the-keys-in-advance)* on Stack Overflow was very helpful. This thread did not answer all of my questions, but it gave me enough foundation to where I could use my own knowledge to connect the dots to apply it to this particular situation.
+Since this was such an involved project, I took inspiration from a few sources. _[This thread](https://stackoverflow.com/questions/6121203/how-to-do-fade-in-and-fade-out-with-javascript-and-css)_ on Stack Overflow really helped me use setInterval for something besides a countdown timer. One of my biggest struggles was retrieving the data from local storage in a way that is acessible to me on the highscores.html page. _[This thread](https://stackoverflow.com/questions/17745292/how-to-retrieve-all-localstorage-items-without-knowing-the-keys-in-advance)_ on Stack Overflow was very helpful. This thread did not answer all of my questions, but it gave me enough foundation to where I could use my own knowledge to connect the dots to apply it to this particular situation.
 
 ---
+
 ## License
 
 GNU General Public License v3.0
